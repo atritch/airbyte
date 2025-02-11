@@ -32,7 +32,12 @@ class S3DataLakeStreamLoader(
     private lateinit var table: Table
     private val pipeline = IcebergParquetPipelineFactory().create(stream)
 
-    private val stagingBranchName = if (stream.shouldBeTruncatedAtEndOfSync()) { DEFAULT_STAGING_BRANCH } else { mainBranchName }
+    private val stagingBranchName =
+        if (stream.shouldBeTruncatedAtEndOfSync()) {
+            DEFAULT_STAGING_BRANCH
+        } else {
+            mainBranchName
+        }
 
     @SuppressFBWarnings(
         "RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE",
