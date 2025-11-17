@@ -17,12 +17,28 @@ class JdbcInsertFlushFunction(
 ) : DestinationFlushFunction {
     @Throws(Exception::class)
     override fun flush(streamDescriptor: StreamDescriptor, stream: Stream<PartialAirbyteMessage>) {
-        recordWriter.accept(
-            AirbyteStreamNameNamespacePair(
-                streamDescriptor.name,
-                streamDescriptor.namespace ?: defaultNamespace
-            ),
-            stream.toList()
+        // Process stream in batches to avoid loading entire dataset into memory
+        // This prevents OOM errors and reduces GC pressure
+        val batchSize = 10000
+        val streamPair = AirbyteStreamNameNamespacePair(
+            streamDescriptor.name,
+            streamDescriptor.namespace ?: defaultNamespace
         )
+
+        val iterator = stream.iterator()
+        val batch = mutableListOf<PartialAirbyteMessage>()
+
+        while (iterator.hasNext()) {
+            batch.add(iterator.next())
+            if (batch.size >= batchSize) {
+                recordWriter.accept(streamPair, batch.toList())
+                batch.clear()
+            }
+        }
+
+        // Flush remaining records
+        if (batch.isNotEmpty()) {
+            recordWriter.accept(streamPair, batch)
+        }
     }
 }

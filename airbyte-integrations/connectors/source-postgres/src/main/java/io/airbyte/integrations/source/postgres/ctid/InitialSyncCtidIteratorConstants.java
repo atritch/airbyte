@@ -7,7 +7,9 @@ package io.airbyte.integrations.source.postgres.ctid;
 public class InitialSyncCtidIteratorConstants {
 
   public static final int MAX_ALLOWED_RESYNCS = 5;
-  public static final int QUERY_TARGET_SIZE_GB = 1;
+  // Reduced from 1GB to 256MB to reduce memory pressure and transaction duration
+  // This results in more frequent commits but safer memory usage
+  public static final double QUERY_TARGET_SIZE_GB = 0.25;
 
   private static final double MEGABYTE = Math.pow(1024, 2);
   public static final double GIGABYTE = MEGABYTE * 1024;

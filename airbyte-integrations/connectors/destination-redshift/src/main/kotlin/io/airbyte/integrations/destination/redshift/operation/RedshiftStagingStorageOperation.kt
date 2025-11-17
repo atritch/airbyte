@@ -252,7 +252,7 @@ class RedshiftStagingStorageOperation(
             CREDENTIALS 'aws_access_key_id=$accessKeyId;aws_secret_access_key=$secretAccessKey'
             CSV GZIP
             REGION '${s3Config.bucketRegion}' TIMEFORMAT 'auto'
-            STATUPDATE OFF
+            STATUPDATE ON
             MANIFEST;
             """.trimIndent()
 

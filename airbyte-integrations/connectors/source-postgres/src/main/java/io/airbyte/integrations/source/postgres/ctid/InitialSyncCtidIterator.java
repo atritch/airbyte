@@ -50,7 +50,8 @@ import org.slf4j.LoggerFactory;
 public class InitialSyncCtidIterator extends AbstractIterator<RowDataWithCtid> implements AutoCloseableIterator<RowDataWithCtid> {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(InitialSyncCtidIterator.class);
-  public static final int MAX_TUPLES_IN_QUERY = 5_000_000;
+  // Reduced from 5M to 1M to prevent OOM and reduce transaction lock duration
+  public static final int MAX_TUPLES_IN_QUERY = 1_000_000;
   private final AirbyteStreamNameNamespacePair airbyteStream;
   private final long blockSize;
   private final List<String> columnNames;

@@ -156,8 +156,11 @@ object DataSourceFactory {
         private var database: String? = null
         private var host: String? = null
         private var jdbcUrl: String? = null
-        private var maximumPoolSize = 10
-        private var minimumPoolSize = 0
+        // Increased default pool size for better concurrency
+        // Modern databases can handle more concurrent connections efficiently
+        private var maximumPoolSize = 50
+        // Maintain at least 10 idle connections to reduce connection setup overhead
+        private var minimumPoolSize = 10
         private var connectionTimeout: Duration = Duration.ZERO
         private var port = 5432
         private var connectionInitSql: String? = null
