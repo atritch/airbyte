@@ -75,6 +75,7 @@ This destination supports [namespaces](https://docs.airbyte.com/platform/using-a
 
 | Version | Date       | Pull Request                                             | Subject                                                                                                                          |
 | :------ | :--------- | :------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------- |
+| 0.2.2 | 2026-03-10 | [68722](https://github.com/airbytehq/airbyte/pull/68722) | Update dependencies |
 | 0.2.1 | 2025-12-19 | [70999](https://github.com/airbytehq/airbyte/pull/70999) | Fix for empty STRUCTs |
 | 0.2.0 | 2025-12-01 | [70221](https://github.com/airbytehq/airbyte/pull/70221) | Upgrade DuckDB to v1.4.2 and duckdb-engine to v0.17.0 |
 | 0.1.26 | 2025-10-21 | [68338](https://github.com/airbytehq/airbyte/pull/68338) | Update dependencies |
